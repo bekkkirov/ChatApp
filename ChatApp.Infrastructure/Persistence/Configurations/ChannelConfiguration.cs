@@ -17,6 +17,9 @@ public class ChannelConfiguration : IEntityTypeConfiguration<Channel>
                .HasForeignKey(c => c.CreatorId);
 
         builder.HasMany(c => c.Users)
-               .WithMany(u => u.JoinedChannels);
+               .WithMany(u => u.JoinedChannels)
+               .UsingEntity<Dictionary<string, object>>(
+                   j => j.HasOne<User>().WithMany().OnDelete(DeleteBehavior.Restrict),
+                   j => j.HasOne<Channel>().WithMany().OnDelete(DeleteBehavior.Restrict));
     }
 }

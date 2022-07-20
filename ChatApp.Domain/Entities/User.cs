@@ -38,11 +38,6 @@ public class User : BaseEntity
     public List<UserSettings> Settings { get; set; } = new List<UserSettings>();
 
     /// <summary>
-    /// Gets or sets the list of friends for this user.
-    /// </summary>
-    public List<User> Friends { get; set; } = new List<User>();
-
-    /// <summary>
     /// Gets or sets the list of chats for this user.
     /// </summary>
     public List<Chat> Chats { get; set; } = new List<Chat>();

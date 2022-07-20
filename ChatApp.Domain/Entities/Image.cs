@@ -1,9 +1,11 @@
-﻿namespace ChatApp.Domain.Entities;
+﻿using ChatApp.Domain.Common;
+
+namespace ChatApp.Domain.Entities;
 
 /// <summary>
 /// Represents an image.
 /// </summary>
-public class Image
+public class Image : BaseEntity
 {
     /// <summary>
     /// Gets or sets the url for this image.
@@ -14,11 +16,6 @@ public class Image
     /// Gets or sets the public id for this image.
     /// </summary>
     public string PublicId { get; set; }
-
-    /// <summary>
-    /// Gets or sets the user profile for this image.
-    /// </summary>
-    public UserProfile Profile { get; set; }
 
     /// <summary>
     /// Gets or sets the message id for this image.

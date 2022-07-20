@@ -12,13 +12,13 @@ public class UserProfileConfiguration : IEntityTypeConfiguration<UserProfile>
                .HasMaxLength(100);
 
         builder.HasOne(p => p.ProfileImage)
-               .WithOne(i => i.Profile)
+               .WithOne()
                .HasForeignKey<UserProfile>(p => p.ProfileImageId)
                .OnDelete(DeleteBehavior.SetNull);
 
         builder.HasOne(p => p.ProfileBackground)
-               .WithOne(i => i.Profile)
+               .WithOne()
                .HasForeignKey<UserProfile>(p => p.ProfileBackgroundId)
-               .OnDelete(DeleteBehavior.SetNull);
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

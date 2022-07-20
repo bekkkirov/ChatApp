@@ -29,9 +29,5 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasOne(u => u.Profile)
                .WithOne(p => p.User)
                .HasForeignKey<UserProfile>(p => p.UserId);
-
-        builder.HasMany(u => u.Friends)
-               .WithMany(u => u.Friends)
-               .UsingEntity(x => x.ToTable("Friends"));
     }
 }
