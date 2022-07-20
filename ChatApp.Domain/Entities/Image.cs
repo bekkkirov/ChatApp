@@ -21,14 +21,14 @@ public class Image
     public UserProfile Profile { get; set; }
 
     /// <summary>
-    /// Gets or sets the chat id for this image.
+    /// Gets or sets the message id for this image.
     /// </summary>
-    public int? ChatId { get; set; }
+    public int? MessageId { get; set; }
 
     /// <summary>
-    /// Gets or sets the chat for this image.
+    /// Gets or sets the message that this image belongs to.
     /// </summary>
-    public Chat Chat { get; set; }
+    public Message Message { get; set; }
 
     /// <summary>
     /// Gets or sets the channel id for this image.

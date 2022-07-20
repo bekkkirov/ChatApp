@@ -13,11 +13,6 @@ public class UserSettings : BaseEntity
     public string FingerPrint { get; set; }
 
     /// <summary>
-    /// Gets or sets the background image id.
-    /// </summary>
-    public int BackgroundImageId { get; set; }
-
-    /// <summary>
     /// Gets or sets the background image.
     /// </summary>
     public Image BackgroundImage { get; set; }
