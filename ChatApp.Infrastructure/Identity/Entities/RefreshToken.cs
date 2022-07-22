@@ -34,4 +34,9 @@ public class RefreshToken
     /// Gets or sets the user id for this token.
     /// </summary>
     public int UserId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user for this token.
+    /// </summary>
+    public UserIdentity User { get; set; }
 }
