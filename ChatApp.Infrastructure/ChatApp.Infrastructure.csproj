@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Identity\Entities\" />
     <Folder Include="Persistence\Configurations\" />
   </ItemGroup>
 
