@@ -15,7 +15,7 @@ public class Message : BaseEntity
     /// <summary>
     /// Gets or sets the time stamp for this image.
     /// </summary>
-    public DateTime TimeStamp { get; set; } = DateTime.Now;
+    public DateTime TimeStamp { get; set; } = DateTime.UtcNow;
 
     /// <summary>
     /// Gets or sets the sender id for this message.
