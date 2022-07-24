@@ -17,4 +17,8 @@
     <Folder Include="Common\Persistence\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.1.0" />
+  </ItemGroup>
+
 </Project>
