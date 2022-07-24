@@ -24,6 +24,10 @@
     <ProjectReference Include="..\ChatApp.Application\ChatApp.Application.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
   <ItemGroup>
     <Folder Include="Identity\Configurations\" />
     <Folder Include="Identity\Extensions\" />

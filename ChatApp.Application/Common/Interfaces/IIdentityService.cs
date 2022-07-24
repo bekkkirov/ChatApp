@@ -8,10 +8,10 @@ namespace ChatApp.Application.Common.Interfaces;
 public interface IIdentityService
 {
     /// <summary>
-    /// Authorizes the user.
+    /// Authenticates the user.
     /// </summary>
     /// <param name="signInData">Auth data.</param>
-    /// <returns>Access and refresh tokens for the authorized user.</returns>
+    /// <returns>Access and refresh tokens for the user with provided credentials.</returns>
     public Task<TokensModel> SignInAsync(SignInModel signInData);
 
     /// <summary>
