@@ -26,6 +26,7 @@
   <ItemGroup>
     <Folder Include="Identity\Configurations\" />
     <Folder Include="Identity\Extensions\" />
+    <Folder Include="Persistence\Repositories\" />
     <Folder Include="Services\" />
     <Folder Include="Persistence\Configurations\" />
   </ItemGroup>
