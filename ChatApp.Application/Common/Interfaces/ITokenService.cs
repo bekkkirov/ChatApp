@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using ChatApp.Application.Common.Models;
+using ChatApp.Application.Common.Models.Authorization;
 
 namespace ChatApp.Application.Common.Interfaces;
 

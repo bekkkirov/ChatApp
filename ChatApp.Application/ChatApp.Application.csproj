@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <Folder Include="Common\Interfaces\" />
-    <Folder Include="Common\Models\" />
     <Folder Include="Common\Exceptions\" />
     <Folder Include="Common\Settings\" />
     <Folder Include="Common\Persistence\" />

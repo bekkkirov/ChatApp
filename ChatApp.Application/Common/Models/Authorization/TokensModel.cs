@@ -1,4 +1,4 @@
-﻿namespace ChatApp.Application.Common.Models;
+﻿namespace ChatApp.Application.Common.Models.Authorization;
 
 public class TokensModel
 {

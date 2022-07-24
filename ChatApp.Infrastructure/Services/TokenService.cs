@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using ChatApp.Application.Common.Exceptions;
 using ChatApp.Application.Common.Interfaces;
-using ChatApp.Application.Common.Models;
+using ChatApp.Application.Common.Models.Authorization;
 using ChatApp.Application.Common.Settings;
 using ChatApp.Infrastructure.Identity.Entities;
 using ChatApp.Infrastructure.Identity.Extensions;
