@@ -3,6 +3,9 @@ using FluentValidation;
 
 namespace ChatApp.Application.Common.Validation.Authorization;
 
+/// <summary>
+/// Represents a validator for the SignInModel. 
+/// </summary>
 public class SignInModelValidator : AbstractValidator<SignInModel>
 {
     public SignInModelValidator()

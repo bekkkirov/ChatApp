@@ -3,6 +3,9 @@ using FluentValidation;
 
 namespace ChatApp.Application.Common.Validation.Authorization;
 
+/// <summary>
+/// Represents a validator for the TokensModel. 
+/// </summary>
 public class TokensModelValidator : AbstractValidator<TokensModel>
 {
     public TokensModelValidator()
