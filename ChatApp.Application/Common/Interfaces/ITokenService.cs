@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using ChatApp.Application.Common.Models;
 
 namespace ChatApp.Application.Common.Interfaces;
 
@@ -21,12 +22,12 @@ public interface ITokenService
     string GenerateRefreshToken();
 
     /// <summary>
-    /// Generates new access token using refresh token.
+    /// Generates new access token using the refresh token.
     /// </summary>
-    /// <param name="token">Expired access token.</param>
-    /// <param name="refreshToken">Refresh token.</param>
+    /// <param name="userName">Username.</param>
+    /// <param name="tokens">User tokens.</param>
     /// <returns>New access token.</returns>
-    string RefreshToken(string token, string refreshToken);
+    Task<string> RefreshToken(string userName, TokensModel tokens);
 
     /// <summary>
     /// Gets the user principal from the expired access token.
