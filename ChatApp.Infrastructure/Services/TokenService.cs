@@ -55,12 +55,14 @@ public class TokenService : ITokenService
 
     public string GenerateRefreshToken()
     {
-        var randomNumber = new byte[64];
+        var randomNumber = new byte[32];
 
         using (var rng = RandomNumberGenerator.Create())
         {
             rng.GetBytes(randomNumber);
-            return Convert.ToBase64String(randomNumber);
+            var refreshToken = Convert.ToBase64String(randomNumber);
+
+            return refreshToken.Substring(0, refreshToken.Length > 64 ? 64 : refreshToken.Length);
         }
     }
 
@@ -73,9 +75,9 @@ public class TokenService : ITokenService
             throw new ValidationException("User with the specified username doesn't exist.");
         }
 
-        if (user.RefreshToken is null )
+        if (user.RefreshToken is null)
         {
-            throw new ValidationException("This user doesn't have generated refresh token.");
+            throw new ValidationException("User doesn't have generated refresh token.");
         }
 
         if (user.RefreshToken.Token != tokens.RefreshToken)

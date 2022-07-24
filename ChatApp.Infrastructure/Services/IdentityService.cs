@@ -5,6 +5,7 @@ using ChatApp.Application.Common.Models.Authorization;
 using ChatApp.Application.Common.Persistence;
 using ChatApp.Domain.Entities;
 using ChatApp.Infrastructure.Identity.Entities;
+using ChatApp.Infrastructure.Identity.Extensions;
 using Microsoft.AspNetCore.Identity;
 
 namespace ChatApp.Infrastructure.Services;
@@ -33,7 +34,7 @@ public class IdentityService : IIdentityService
 
     public async Task<TokensModel> SignInAsync(SignInModel signInData)
     {
-        var user = await _userManager.FindByNameAsync(signInData.UserName);
+        var user = await _userManager.FindByNameWithRefreshTokenAsync(signInData.UserName);
 
         if (user is null)
         {
@@ -83,11 +84,21 @@ public class IdentityService : IIdentityService
     {
         var refreshToken = _tokenService.GenerateRefreshToken();
 
-        user.RefreshToken = new RefreshToken()
+        if (user.RefreshToken is null)
         {
-            Token = refreshToken,
-            ExpiryDate = DateTime.UtcNow.AddDays(31),
-        };
+            user.RefreshToken = new RefreshToken()
+            {
+                Token = refreshToken,
+                ExpiryDate = DateTime.UtcNow.AddDays(31),
+            };
+        }
+
+        else
+        {
+            user.RefreshToken.Token = refreshToken;
+            user.RefreshToken.ExpiryDate = DateTime.UtcNow.AddDays(31);
+            user.RefreshToken.IsUsed = false;
+        }
 
         await _userManager.UpdateAsync(user);
 
