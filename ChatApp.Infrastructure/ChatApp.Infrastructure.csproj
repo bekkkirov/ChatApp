@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.7" />
@@ -26,6 +27,7 @@
   <ItemGroup>
     <Folder Include="Identity\Configurations\" />
     <Folder Include="Identity\Extensions\" />
+    <Folder Include="Mapping\" />
     <Folder Include="Persistence\Repositories\" />
     <Folder Include="Services\" />
     <Folder Include="Persistence\Configurations\" />

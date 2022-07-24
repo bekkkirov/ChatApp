@@ -1,5 +1,6 @@
 ﻿using ChatApp.Application.Common.Persistence;
 using ChatApp.Infrastructure.Identity;
+using ChatApp.Infrastructure.Mapping;
 using ChatApp.Infrastructure.Persistence;
 using ChatApp.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ public static class ServiceExtensions
     { 
         services.AddDatabaseContexts(configuration);
         services.AddRepositories();
+        services.AddAutoMapper(typeof(MapperProfile).Assembly);
     }
 
     private static void AddDatabaseContexts(this IServiceCollection services, IConfiguration configuration)
