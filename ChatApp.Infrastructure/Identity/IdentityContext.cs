@@ -1,4 +1,5 @@
-﻿using ChatApp.Infrastructure.Identity.Entities;
+﻿using ChatApp.Infrastructure.Identity.Configurations;
+using ChatApp.Infrastructure.Identity.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,6 @@ public class IdentityContext : IdentityDbContext<UserIdentity, UserRole, int>
     {
         base.OnModelCreating(builder);
 
-        builder.ApplyConfigurationsFromAssembly(typeof(IdentityContext).Assembly);
+        builder.ApplyConfiguration(new RefreshTokenConfiguration());
     }
 }
