@@ -95,18 +95,22 @@ public class TokenService : ITokenService
             throw new ValidationException("Refresh token has already expired.");
         }
 
+        user.RefreshToken.IsUsed = true;
+        await _userManager.UpdateAsync(user);
+
         var principal = GetPrincipalFromExpiredToken(tokens.AccessToken);
 
-        return GenerateAccessToken(principal.Identity.Name);
+        return GenerateAccessToken(principal.FindFirstValue(ClaimTypes.NameIdentifier));
     }
 
     public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
+
         var principal = tokenHandler.ValidateToken(token, _tokenValidationParameters, out var securityToken);
         var jwtSecurityToken = securityToken as JwtSecurityToken;
 
-        if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha512Signature, StringComparison.InvariantCultureIgnoreCase))
+        if (jwtSecurityToken == null)
         {
             throw new ValidationException("Provided token is invalid.");
         }
