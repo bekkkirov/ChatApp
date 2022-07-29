@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
-using ChatApp.Domain.Entities;
-using ChatApp.Infrastructure.Identity;
+using AutoMapper;
 using ChatApp.Infrastructure.Identity.Entities;
+using ChatApp.Infrastructure.Mapping;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Moq;
 
@@ -20,6 +20,18 @@ public static class UnitTestHelpers
         return userManagerMock;
     }
 
+    public static Mock<SignInManager<UserIdentity>> CreateSignInManagerMock()
+    {
+        var userManagerMock = CreateUserManagerMock();
+        var contextAccessorMock = new Mock<IHttpContextAccessor>();
+        var claimsFactoryMock = new Mock<IUserClaimsPrincipalFactory<UserIdentity>>();
+
+        var signInManagerMock = new Mock<SignInManager<UserIdentity>>(userManagerMock.Object, contextAccessorMock.Object, claimsFactoryMock.Object,
+            null, null, null, null);
+
+        return signInManagerMock;
+    }
+
     public static TokenValidationParameters CreateTokenValidationParameters(string key)
     {
         return new TokenValidationParameters()
@@ -31,5 +43,15 @@ public static class UnitTestHelpers
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
             ValidateIssuerSigningKey = true
         };
+    }
+
+    public static IMapper CreateMapperProfile()
+    {
+        var config = new MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile(new MapperProfile());
+        });
+
+        return config.CreateMapper();
     }
 }
