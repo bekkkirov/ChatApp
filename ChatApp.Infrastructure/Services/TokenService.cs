@@ -18,16 +18,14 @@ namespace ChatApp.Infrastructure.Services;
 public class TokenService : ITokenService
 {
     private readonly SymmetricSecurityKey _key;
-    private readonly TokenValidationParameters _tokenValidationParameters;
     private readonly UserManager<UserIdentity> _userManager;
 
     /// <summary>
     /// Creates an instance of the token service.
     /// </summary>
-    public TokenService(IOptions<TokenSettings> tokenSettings, TokenValidationParameters tokenValidationParameters, UserManager<UserIdentity> userManager)
+    public TokenService(IOptions<TokenSettings> tokenSettings, UserManager<UserIdentity> userManager)
     {
         _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenSettings.Value.Key));
-        _tokenValidationParameters = tokenValidationParameters;
         _userManager = userManager;
     }
 
@@ -43,7 +41,7 @@ public class TokenService : ITokenService
         var tokenDescriptor = new SecurityTokenDescriptor()
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.Now.AddDays(14),
+            Expires = DateTime.Now.AddSeconds(14),
             SigningCredentials = credentials
         };
 
@@ -107,7 +105,17 @@ public class TokenService : ITokenService
     {
         var tokenHandler = new JwtSecurityTokenHandler();
 
-        var principal = tokenHandler.ValidateToken(token, _tokenValidationParameters, out var securityToken);
+        var tokenValidationParams = new TokenValidationParameters()
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = false,
+            ClockSkew = TimeSpan.Zero,
+            IssuerSigningKey = _key,
+            ValidateIssuerSigningKey = true
+        };
+
+        var principal = tokenHandler.ValidateToken(token, tokenValidationParams, out var securityToken);
         var jwtSecurityToken = securityToken as JwtSecurityToken;
 
         if (jwtSecurityToken == null)
