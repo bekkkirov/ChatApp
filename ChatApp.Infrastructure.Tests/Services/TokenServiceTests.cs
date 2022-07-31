@@ -28,7 +28,6 @@ public class TokenServiceTests
 {
     private readonly string _key = "VeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVerySecretKey";
     private readonly Mock<UserManager<UserIdentity>> _userManagerMock;
-    private readonly TokenValidationParameters _tokenValidationParams;
     private readonly IOptions<TokenSettings> _tokenSettings;
 
     private readonly TokenService _tokenService;
@@ -163,9 +162,8 @@ public class TokenServiceTests
     {
         _userManagerMock = UnitTestHelpers.CreateUserManagerMock();
         _tokenSettings = Options.Create(new TokenSettings() { Key = _key });
-        _tokenValidationParams = UnitTestHelpers.CreateTokenValidationParameters(_key);
 
-        _tokenService = new TokenService(_tokenSettings, _tokenValidationParams, _userManagerMock.Object);
+        _tokenService = new TokenService(_tokenSettings, _userManagerMock.Object);
     }
 
     [Theory]
@@ -176,12 +174,13 @@ public class TokenServiceTests
     {
         // Arrange
         var tokenHandler = new JwtSecurityTokenHandler();
+        var tokenValidationParams = UnitTestHelpers.CreateTokenValidationParameters(_key);
 
         // Act
         var accessToken = _tokenService.GenerateAccessToken(userName);
 
         // Assert
-        var principal = tokenHandler.ValidateToken(accessToken, _tokenValidationParams, out var validatedToken);
+        var principal = tokenHandler.ValidateToken(accessToken, tokenValidationParams, out var validatedToken);
         var jwtSecurityToken = validatedToken as JwtSecurityToken;
 
         Assert.NotNull(jwtSecurityToken);
