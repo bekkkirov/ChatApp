@@ -8,8 +8,8 @@ namespace ChatApp.Infrastructure.Persistence.Repositories;
 ///<inheritdoc cref="IRepository{TEntity}"/>
 public abstract class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
 {
-    private readonly ChatContext _context;
-    private readonly DbSet<TEntity> _dbSet;
+    private protected readonly ChatContext _context;
+    private protected readonly DbSet<TEntity> _dbSet;
 
     protected BaseRepository(ChatContext context)
     {
