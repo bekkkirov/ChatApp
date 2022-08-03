@@ -92,7 +92,7 @@ public static class ServiceExtensions
                 .AddRoleManager<RoleManager<UserRole>>()
                 .AddSignInManager<SignInManager<UserIdentity>>()
                 .AddRoleValidator<RoleValidator<UserRole>>()
+                .AddTokenProvider<DataProtectorTokenProvider<UserIdentity>>(TokenOptions.DefaultProvider)
                 .AddEntityFrameworkStores<IdentityContext>();
-
     }
 }
