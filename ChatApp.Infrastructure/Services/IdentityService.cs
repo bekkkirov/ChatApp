@@ -76,6 +76,41 @@ public class IdentityService : IIdentityService
         return new TokensModel() {AccessToken = accessToken, RefreshToken = refreshToken};
     }
 
+    public async Task ChangeEmailAsync(string userName, string newEmail)
+    {
+        var user = await _userManager.FindByNameAsync(userName);
+
+        if (user.Email != newEmail)
+        {
+            var token = await _userManager.GenerateChangeEmailTokenAsync(user, newEmail);
+            var result = await _userManager.ChangeEmailAsync(user, newEmail, token);
+
+            if (!result.Succeeded)
+            {
+                throw new IdentityException(result.Errors.FirstOrDefault()
+                                                  ?.Description);
+            }
+        }
+    }
+
+    public async Task ChangePasswordAsync(string userName, string newPassword)
+    {
+        var user = await _userManager.FindByNameAsync(userName);
+
+        if (await _userManager.CheckPasswordAsync(user, newPassword))
+        {
+            throw new IdentityException("New password can't be the same as the old one.");
+        }
+
+        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+        var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
+
+        if (!result.Succeeded)
+        {
+            throw new IdentityException(result.Errors.FirstOrDefault()?.Description);
+        }
+    }
+
     /// <summary>
     /// Generates a refresh token for the specified user and adds it to the database.
     /// </summary>

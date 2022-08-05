@@ -20,4 +20,14 @@ public interface IIdentityService
     /// <param name="signUpData">Register data.</param>
     /// <returns>Access and refresh tokens for the new user.</returns>
     public Task<TokensModel> SignUpAsync(SignUpModel signUpData);
+
+    /// <summary>
+    /// Changes email for the specified user.
+    /// </summary>
+    Task ChangeEmailAsync(string userName, string newEmail);
+
+    /// <summary>
+    /// Changes password for the specified user.
+    /// </summary>
+    Task ChangePasswordAsync(string userName, string newPassword);
 }
