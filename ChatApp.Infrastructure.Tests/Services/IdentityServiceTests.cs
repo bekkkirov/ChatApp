@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ChatApp.Application.Common.Exceptions;
@@ -23,7 +24,7 @@ public class IdentityServiceTests
     private readonly Mock<ITokenService> _tokenServiceMock = new Mock<ITokenService>();
     private readonly Mock<IUnitOfWork> _unitOfWorkMock = new Mock<IUnitOfWork>();
     private readonly IMapper _mapper;
-    private readonly IIdentityService _identityService;
+    private readonly IdentityService _identityService;
 
     #region TestData
 
@@ -34,6 +35,7 @@ public class IdentityServiceTests
             Id = 1,
             UserName = "user1",
             NormalizedUserName = "USER1",
+            Email = "user1@mail.com",
             RefreshToken = new RefreshToken()
             {
                 Token = "refreshToken1",
@@ -100,6 +102,10 @@ public class IdentityServiceTests
         _mapper = UnitTestHelpers.CreateMapperProfile();
 
         _userManagerMock = UnitTestHelpers.CreateUserManagerMock();
+
+        _userManagerMock.Setup(x => x.FindByNameAsync(It.IsAny<string>()))
+                        .ReturnsAsync((string uName) => _userIdentities.FirstOrDefault(u => u.UserName == uName));
+
         _userManagerMock.Setup(x => x.Users)
                         .Returns(_userIdentities.BuildMock);
 
@@ -177,5 +183,94 @@ public class IdentityServiceTests
         // Assert
         Assert.False(string.IsNullOrWhiteSpace(tokens.AccessToken));
         Assert.False(string.IsNullOrWhiteSpace(tokens.RefreshToken));
+    }
+
+    [Fact]
+    public async Task ChangeEmail_ShouldThrowWhenOperationFailed()
+    {
+        var userName = "user1";
+        var email = "someMail@mail.com";
+
+        _userManagerMock.Setup(x => x.GenerateChangeEmailTokenAsync(It.IsAny<UserIdentity>(), It.IsAny<string>()))
+                        .ReturnsAsync("SomeResetToken");
+
+        _userManagerMock.Setup(x => x.ChangeEmailAsync(It.IsAny<UserIdentity>(), It.IsAny<string>(), It.IsAny<string>()))
+                        .ReturnsAsync(IdentityResult.Failed());
+
+        await Assert.ThrowsAsync<IdentityException>(() => _identityService.ChangeEmailAsync(userName, email));
+    }
+
+    [Fact]
+    public async Task ChangeEmail_ShouldWorkWithValidData()
+    {
+        // Arrange
+        var userName = "user1";
+        var email = "someMail@mail.com";
+
+        _userManagerMock.Setup(x => x.GenerateChangeEmailTokenAsync(It.IsAny<UserIdentity>(), It.IsAny<string>()))
+                        .ReturnsAsync("SomeResetToken");
+
+        _userManagerMock.Setup(x => x.ChangeEmailAsync(It.IsAny<UserIdentity>(), It.IsAny<string>(), It.IsAny<string>()))
+                        .ReturnsAsync(IdentityResult.Success);
+
+        // Act
+        await _identityService.ChangeEmailAsync(userName, email);
+
+        // Assert
+        _userManagerMock.Verify(x => x.ChangeEmailAsync(It.Is<UserIdentity>(u => u.UserName == userName),
+                                It.IsAny<string>(),
+                                   It.IsAny<string>()), Times.Once);
+    }
+
+    [Fact]
+    public async Task ChangePassword_ShouldThrowWhenThePasswordsAreTheSame()
+    {
+        var userName = "user1";
+        var password = "ThisPasswordIsTheSameAsTheOldOne";
+
+        _userManagerMock.Setup(x => x.CheckPasswordAsync(It.IsAny<UserIdentity>(), It.IsAny<string>()))
+                        .ReturnsAsync(true);
+
+        await Assert.ThrowsAsync<IdentityException>(() => _identityService.ChangePasswordAsync(userName, password));
+    }
+
+    [Fact]
+    public async Task ChangePassword_ShouldThrowWhenOperationFailed()
+    {
+        var userName = "user1";
+        var password = "ThisPasswordIsTheSameAsTheOldOne";
+
+        _userManagerMock.Setup(x => x.CheckPasswordAsync(It.IsAny<UserIdentity>(), It.IsAny<string>()))
+                        .ReturnsAsync(false);
+
+        _userManagerMock.Setup(x => x.ResetPasswordAsync(It.IsAny<UserIdentity>(), It.IsAny<string>(), It.IsAny<string>()))
+                        .ReturnsAsync(IdentityResult.Failed());
+
+        await Assert.ThrowsAsync<IdentityException>(() => _identityService.ChangePasswordAsync(userName, password));
+    }
+
+    [Fact]
+    public async Task ChangePassword_ShouldWorkWithValidData()
+    {
+        // Arrange
+        var userName = "user1";
+        var password = "newPassword";
+
+        _userManagerMock.Setup(x => x.CheckPasswordAsync(It.IsAny<UserIdentity>(), It.IsAny<string>()))
+                        .ReturnsAsync(false);
+
+        _userManagerMock.Setup(x => x.GeneratePasswordResetTokenAsync(It.IsAny<UserIdentity>()))
+                        .ReturnsAsync("SomeResetToken");
+
+        _userManagerMock.Setup(x => x.ResetPasswordAsync(It.IsAny<UserIdentity>(), It.IsAny<string>(), It.IsAny<string>()))
+                        .ReturnsAsync(IdentityResult.Success);
+
+        // Act
+        await _identityService.ChangePasswordAsync(userName, password);
+
+        // Assert
+        _userManagerMock.Verify(x => x.ResetPasswordAsync(It.Is<UserIdentity>(u => u.UserName == userName),
+                                    It.IsAny<string>(), 
+                               It.IsAny<string>()), Times.Once);
     }
 }
