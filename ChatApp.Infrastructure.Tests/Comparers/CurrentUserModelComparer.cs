@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ChatApp.Application.Common.Models;
+using ChatApp.Application.Common.Models.User;
 
 namespace ChatApp.Infrastructure.Tests.Comparers;
 

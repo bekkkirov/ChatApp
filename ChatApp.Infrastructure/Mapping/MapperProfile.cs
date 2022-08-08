@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ChatApp.Application.Common.Models;
 using ChatApp.Application.Common.Models.Authorization;
+using ChatApp.Application.Common.Models.Image;
 using ChatApp.Domain.Entities;
 
 namespace ChatApp.Infrastructure.Mapping;

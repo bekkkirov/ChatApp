@@ -1,4 +1,6 @@
-﻿namespace ChatApp.Application.Common.Models;
+﻿using ChatApp.Application.Common.Models.Image;
+
+namespace ChatApp.Application.Common.Models.User;
 
 public class CurrentUserModel
 {

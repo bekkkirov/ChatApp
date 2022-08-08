@@ -1,4 +1,5 @@
 ﻿using ChatApp.Application.Common.Models;
+using ChatApp.Application.Common.Models.User;
 using FluentValidation;
 
 namespace ChatApp.Application.Common.Validation.User;

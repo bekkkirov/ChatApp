@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using ChatApp.Application.Common.Interfaces;
 using ChatApp.Application.Common.Models;
+using ChatApp.Application.Common.Models.Image;
+using ChatApp.Application.Common.Models.User;
 using ChatApp.Application.Common.Persistence;
 using ChatApp.Domain.Entities;
 using ChatApp.Infrastructure.Identity.Entities;

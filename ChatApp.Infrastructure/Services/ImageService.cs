@@ -2,6 +2,7 @@
 using ChatApp.Application.Common.Exceptions;
 using ChatApp.Application.Common.Interfaces;
 using ChatApp.Application.Common.Models;
+using ChatApp.Application.Common.Models.Image;
 using ChatApp.Application.Common.Persistence;
 using ChatApp.Application.Common.Settings;
 using ChatApp.Domain.Entities;

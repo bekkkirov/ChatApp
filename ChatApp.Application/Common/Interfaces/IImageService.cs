@@ -1,4 +1,5 @@
 ﻿using ChatApp.Application.Common.Models;
+using ChatApp.Application.Common.Models.Image;
 using Microsoft.AspNetCore.Http;
 
 namespace ChatApp.Application.Common.Interfaces;
