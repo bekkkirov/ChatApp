@@ -15,6 +15,11 @@ public class UserRepository : BaseRepository<User>, IUserRepository
 
     }
 
+    public async Task<User> GetByUserNameAsync(string userName)
+    {
+        return await _dbSet.FirstOrDefaultAsync(u => u.UserName == userName);
+    }
+
     public async Task<User> GetUserWithProfileImageAsync(string userName)
     {
         return await _dbSet.Include(u => u.Profile)
@@ -22,9 +27,12 @@ public class UserRepository : BaseRepository<User>, IUserRepository
                            .FirstOrDefaultAsync(u => u.UserName == userName);
     }
 
-    public async Task<User> GetUserWithSettingsAsync(string userName)
+    public async Task<User> GetUserWithProfileAndSettingsAsync(string userName)
     {
-        return await _dbSet.Include(u => u.Settings)
+        return await _dbSet.Include(u => u.Profile)
+                           .ThenInclude(p => p.ProfileImage)
+                           .Include(u => u.Settings)
+                           .ThenInclude(s => s.BackgroundImage)
                            .FirstOrDefaultAsync(u => u.UserName == userName);
     }
 }
