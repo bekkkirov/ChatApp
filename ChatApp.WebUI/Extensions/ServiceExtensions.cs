@@ -26,6 +26,7 @@ public static class ServiceExtensions
         services.AddApplicationServices();
         services.AddJwt(configuration);
         services.AddIdentity();
+        services.AddCloudinary(configuration);
     }
 
     private static void AddDatabaseContexts(this IServiceCollection services, IConfiguration configuration)
@@ -52,6 +53,8 @@ public static class ServiceExtensions
     {
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IIdentityService, IdentityService>();
+        services.AddScoped<IImageService, ImageService>();
+        services.AddScoped<IUserService, UserService>();
     }
 
     private static void AddJwt(this IServiceCollection services, IConfiguration configuration)
@@ -94,5 +97,10 @@ public static class ServiceExtensions
                 .AddRoleValidator<RoleValidator<UserRole>>()
                 .AddTokenProvider<DataProtectorTokenProvider<UserIdentity>>(TokenOptions.DefaultProvider)
                 .AddEntityFrameworkStores<IdentityContext>();
+    }
+
+    private static void AddCloudinary(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<CloudinarySettings>(configuration.GetSection("Cloudinary"));
     }
 }
