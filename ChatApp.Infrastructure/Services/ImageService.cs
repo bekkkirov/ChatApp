@@ -13,12 +13,16 @@ using Microsoft.Extensions.Options;
 
 namespace ChatApp.Infrastructure.Services;
 
+///<inheritdoc cref="IImageService"/>
 public class ImageService : IImageService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly Cloudinary _cloudinary;
 
+    /// <summary>
+    /// Creates a new instance of the image service.
+    /// </summary>
     public ImageService(IUnitOfWork unitOfWork, IOptions<CloudinarySettings> config, IMapper mapper)
     {
         _unitOfWork = unitOfWork;

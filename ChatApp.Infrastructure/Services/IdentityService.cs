@@ -19,6 +19,9 @@ public class IdentityService : IIdentityService
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
+    /// <summary>
+    /// Creates a new instance of the Identity service.
+    /// </summary>
     public IdentityService(UserManager<UserIdentity> userManager,
                            SignInManager<UserIdentity> signInManager,
                            ITokenService tokenService,

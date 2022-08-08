@@ -4,6 +4,9 @@ using FluentValidation;
 
 namespace ChatApp.Application.Common.Validation.User;
 
+/// <summary>
+/// Represents a validator for the UserUpdateModel.
+/// </summary>
 public class UserUpdateModelValidator : AbstractValidator<UserUpdateModel>
 {
     public UserUpdateModelValidator()

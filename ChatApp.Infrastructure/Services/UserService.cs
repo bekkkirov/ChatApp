@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ChatApp.Infrastructure.Services;
 
+///<inheritdoc cref="IUserService"/>
 public class UserService : IUserService
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -20,6 +21,9 @@ public class UserService : IUserService
     private readonly IIdentityService _identityService;
     private readonly UserManager<UserIdentity> _userManager;
 
+    /// <summary>
+    /// Creates a new instance of the user service.
+    /// </summary>
     public UserService(IUnitOfWork unitOfWork,
                        IImageService imageService,
                        IMapper mapper,
