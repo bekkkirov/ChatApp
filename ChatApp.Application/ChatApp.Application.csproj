@@ -14,6 +14,7 @@
     <Folder Include="Common\Exceptions\" />
     <Folder Include="Common\Settings\" />
     <Folder Include="Common\Persistence\" />
+    <Folder Include="Common\Validation\User\" />
   </ItemGroup>
 
   <ItemGroup>
