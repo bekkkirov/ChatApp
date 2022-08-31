@@ -1,3 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
+.auth-page-container {
+  min-height: 100%;
+  padding: 0 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.auth-page-container::after {
+  content: "";
+  background-image: url("assets/form-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.85;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+.auth-title {
+  color: #fff;
+  font-family: "Permanent Marker", cursive !important;
+}
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: black;
+}
+.auth-form-control {
+  margin-bottom: 10px;
+}
+.auth-form-control mat-form-field {
+  width: 350px;
+  font-size: 18px;
+  color: white;
+}
+@media screen and (max-width: 480px) {
+  .auth-form-control mat-form-field {
+    max-width: 260px;
+  }
+}
+.auth-submit {
+  width: 200px;
+  background-image: linear-gradient(to right, #DC2424 0%, #4A569D 51%, #DC2424 100%);
+  transition: 0.5s;
+  background-size: 200% auto;
+  font-weight: normal;
+  font-size: 18px;
+}
+.auth-submit:enabled:hover {
+  background-position: right center;
+  color: #fff;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -11,6 +70,15 @@ html, body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+::-ms-reveal {
+  display: none;
 }
 
 /*# sourceMappingURL=styles.css.map */
