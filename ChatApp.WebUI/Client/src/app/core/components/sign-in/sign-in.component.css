@@ -1,0 +1,72 @@
+.sign-in__inner {
+  display: flex;
+  height: 500px;
+  border-radius: 15px;
+  box-shadow: 2px 10px 20px #000;
+  width: 100%;
+  max-width: 1200px;
+}
+.sign-in__col1, .sign-in__col2 {
+  width: 50%;
+}
+.sign-in__col1 {
+  background-image: url("../../../../assets/form-side.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px 0 0 15px;
+}
+@media screen and (max-width: 768px) {
+  .sign-in__col1 {
+    display: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .sign-in__col2 {
+    width: 100%;
+  }
+}
+.sign-in__title {
+  margin-bottom: 40px;
+  font-size: 50px;
+}
+.sign-in__form {
+  height: 100%;
+  position: relative;
+  padding: 50px;
+  border-radius: 0 15px 15px 0;
+}
+@media screen and (max-width: 768px) {
+  .sign-in__form {
+    border-radius: 15px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .sign-in__form {
+    padding: 30px;
+  }
+}
+.sign-in__form-submit {
+  padding: 5px 15px;
+  margin: 10px 0 30px 0;
+}
+.sign-in__register {
+  position: absolute;
+  bottom: 15px;
+}
+
+.register__text {
+  color: #fff;
+  font-size: 18px;
+  margin: 0;
+}
+@media screen and (max-width: 380px) {
+  .register__text {
+    font-size: 16px;
+  }
+}
+.register__link {
+  color: blueviolet;
+}
+
+/*# sourceMappingURL=sign-in.component.css.map */

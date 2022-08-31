@@ -1,0 +1,29 @@
+<div class="sign-in auth-page-container">
+    <div class="sign-in__inner">
+        <div class="sign-in__col1"></div>
+        <div class="sign-in__col2">
+            <form class="sign-in__form auth-form" [formGroup]="form">
+                <h1 class="sign-in__title auth-title">Log in</h1>
+                <div class="sign-in__form-control auth-form-control">
+                    <mat-form-field appearance="outline" hideRequiredMarker>
+                        <mat-label>Username</mat-label>
+                        <input matInput formControlName="userName">
+                        <mat-error>This field is required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="sign-in__form-control auth-form-control">
+                    <mat-form-field appearance="outline" hideRequiredMarker>
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" formControlName="password">
+                        <mat-error>This field is required</mat-error>
+                    </mat-form-field>
+                </div>
+                <button class="sign-in__form-submit auth-submit" mat-raised-button type="submit" [disabled]="form.invalid">Log in
+                </button>
+                <div class="sign-in__register">
+                    <p class="register__text">Dont have an account? <a href="" class="register__link">Sign up now!</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
