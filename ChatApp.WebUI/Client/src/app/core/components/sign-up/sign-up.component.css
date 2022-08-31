@@ -1,0 +1,42 @@
+.sign-up {
+  padding: 10px 20px;
+}
+.sign-up__title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.sign-up__title h1 {
+  margin: 0;
+  font-size: 50px;
+}
+@media screen and (max-width: 414px) {
+  .sign-up__title h1 {
+    font-size: 40px;
+  }
+}
+.sign-up__title img {
+  width: 64px;
+  height: 64px;
+}
+@media screen and (max-width: 414px) {
+  .sign-up__title img {
+    width: 56px;
+    height: 56px;
+  }
+}
+.sign-up__form {
+  padding: 10px 30px;
+  border-radius: 15px;
+}
+@media screen and (max-width: 414px) {
+  .sign-up__form {
+    padding: 10px 15px;
+  }
+}
+.sign-up__form-submit {
+  padding: 5px 15px;
+  margin: 10px 0 30px 0;
+}
+
+/*# sourceMappingURL=sign-up.component.css.map */

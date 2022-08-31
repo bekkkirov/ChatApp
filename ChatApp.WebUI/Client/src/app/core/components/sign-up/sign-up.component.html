@@ -1,0 +1,73 @@
+<div class="sign-up auth-page-container">
+    <div class="sign-up__inner">
+        <form [formGroup]="form" class="sign-up__form auth-form">
+            <div class="sign-up__title">
+                <h1 class="auth-title">Join Droid</h1>
+                <img src="../../../../assets/icon.png" alt="">
+            </div>
+            <div class="sign-up__form-control auth-form-control">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                    <mat-label>Username</mat-label>
+                    <input formControlName="userName" matInput>
+                    <mat-error *ngIf="form.get('userName')?.hasError('required')">This field is required.</mat-error>
+                    <mat-error *ngIf="form.get('userName')?.hasError('minlength')">Username is too short.</mat-error>
+                    <mat-error *ngIf="form.get('userName')?.hasError('maxlength')">Username is too long.</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="sign-up__form-contro auth-form-control">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                    <mat-label>Email</mat-label>
+                    <input formControlName="email" matInput type="email">
+                    <mat-error *ngIf="form.get('email')?.hasError('required')">This field is required.</mat-error>
+                    <mat-error *ngIf="form.get('email')?.hasError('email')">Please, provide a valid email.</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="sign-up__form-control auth-form-control">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                    <mat-label>First name</mat-label>
+                    <input formControlName="firstName" matInput>
+                    <mat-error *ngIf="form.get('firstName')?.hasError('required')">This field is required.</mat-error>
+                    <mat-error *ngIf="form.get('firstName')?.hasError('minlength')">First name is too short.</mat-error>
+                    <mat-error *ngIf="form.get('firstName')?.hasError('maxlength')">First name is too long.</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="sign-up__form-control auth-form-control">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                    <mat-label>Last name</mat-label>
+                    <input formControlName="lastName" matInput>
+                    <mat-error *ngIf="form.get('lastName')?.hasError('required')">This field is required.</mat-error>
+                    <mat-error *ngIf="form.get('lastName')?.hasError('minlength')">Last name is too short.</mat-error>
+                    <mat-error *ngIf="form.get('lastName')?.hasError('maxlength')">Last name is too long.</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="sign-up__form-control auth-form-control">
+                <mat-form-field appearance="outline" hideRequiredMarker>
+                    <mat-label>Birth date</mat-label>
+                    <input formControlName="birthDate" matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="form.get('birthDate')?.hasError('invalidDate')">Please, provide a valid date.</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="passwords" formGroupName="passwords">
+                <div class="sign-up__form-control auth-form-control">
+                    <mat-form-field appearance="outline" hideRequiredMarker>
+                        <mat-label>Password</mat-label>
+                        <input formControlName="password" matInput type="password">
+                        <mat-error *ngIf="form.get('passwords.password')?.hasError('required')">This field is required.</mat-error>
+                        <mat-error *ngIf="form.get('passwords.password')?.hasError('minlength')">Password is too short.</mat-error>
+                        <mat-error *ngIf="form.get('passwords.password')?.hasError('maxlength')">Password is too long.</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="sign-up__form-control auth-form-control">
+                    <mat-form-field appearance="outline" hideRequiredMarker>
+                        <mat-label>Confirm password</mat-label>
+                        <input formControlName="confirmPassword" matInput type="password" [errorStateMatcher]="matcher">
+                        <mat-error *ngIf="form.get('passwords')?.hasError('passwordsDontMatch')">Passwords don't match.</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <button class="sign-up__form-submit auth-submit" mat-raised-button type="submit" [disabled]="form.invalid">Register</button>
+        </form>
+    </div>
+</div>
