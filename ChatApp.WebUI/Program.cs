@@ -10,6 +10,8 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Services.AddCorsPolicy();
+
         builder.Services.AddControllers()
                         .AddFluentValidation(opt =>
                         {
@@ -28,6 +30,7 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        app.UseCors("DefaultPolicy");
         app.UseHttpsRedirection();
 
         app.UseAuthentication();

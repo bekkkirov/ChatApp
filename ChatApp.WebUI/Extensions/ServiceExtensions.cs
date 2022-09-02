@@ -18,6 +18,16 @@ namespace ChatApp.WebUI.Extensions;
 
 public static class ServiceExtensions
 {
+    public static void AddCorsPolicy(this IServiceCollection services)
+    {
+        services.AddCors(opt => opt.AddPolicy("DefaultPolicy", builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        }));
+    }
+
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     { 
         services.AddDatabaseContexts(configuration);
