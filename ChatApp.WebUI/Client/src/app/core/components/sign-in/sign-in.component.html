@@ -18,10 +18,16 @@
                         <mat-error>This field is required</mat-error>
                     </mat-form-field>
                 </div>
-                <button class="sign-in__form-submit auth-submit" mat-raised-button type="submit" [disabled]="form.invalid">Log in
+                <button
+                        class="sign-in__form-submit auth-submit"
+                        mat-raised-button
+                        type="submit"
+                        [disabled]="form.invalid"
+                        (click)="signIn()">
+                    Log in
                 </button>
                 <div class="sign-in__register">
-                    <p class="register__text">Dont have an account? <a href="" class="register__link">Sign up now!</a></p>
+                    <p class="register__text">Dont have an account? <a routerLink="../sign-up" class="register__link">Sign up now!</a></p>
                 </div>
             </form>
         </div>
