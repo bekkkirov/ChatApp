@@ -11,6 +11,11 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {SignUpComponent} from './core/components/sign-up/sign-up.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import {AppRoutingModule} from "./core/routing/app-routing.module";
+import {API_BASE_URL} from "./core/extensions/injection-tokens";
+import {environment} from "../environments/environment";
+import {HttpClientModule} from "@angular/common/http";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
     declarations: [
@@ -26,9 +31,17 @@ import {MatNativeDateModule} from "@angular/material/core";
         MatButtonModule,
         ReactiveFormsModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ToastrModule.forRoot({positionClass: 'toast-bottom-right'}),
     ],
-    providers: [],
+    providers: [
+        {
+            provide: API_BASE_URL,
+            useValue: environment.apiBaseUrl
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
